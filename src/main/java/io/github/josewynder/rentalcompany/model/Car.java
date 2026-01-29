@@ -10,7 +10,12 @@ public class Car {
     }
 
     public Double calculateRentalValue(int rentedDays) {
-        return rentedDays * dailyValue;
+        double rentalValue = rentedDays * dailyValue;
+        int discount = 50;
+        if(rentedDays >= 5) {
+            rentalValue -= discount;
+        }
+        return rentalValue;
     }
 
     public String getModel() {
