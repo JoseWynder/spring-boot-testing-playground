@@ -9,7 +9,7 @@ class CarTest {
 
     @Test
     @DisplayName("Must to calculate the correct rental amount")
-    void mustCalculateRentalValue() {
+    void shouldCalculateRentalValue() {
         // 1. Scenario
         Car car = new Car("Sedan", 100.0);
 
@@ -22,7 +22,7 @@ class CarTest {
 
     @Test
     @DisplayName("Must to calculate the rental value with the discount")
-    void mustCalculateRentalValueWithDiscount() {
+    void shouldCalculateRentalValueWithDiscount() {
         // 1. Scenario
         Car car = new Car("Sedan", 100.0);
         int quantityDays = 10;

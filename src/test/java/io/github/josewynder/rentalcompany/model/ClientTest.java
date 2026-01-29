@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class ClientTest {
 
     @Test
-    void mustCreateClientWithName() {
+    void shouldCreateClientWithName() {
         // 1. Scenario
         Client client = new Client("Maria");
 
@@ -28,7 +28,7 @@ class ClientTest {
     }
 
     @Test
-    void mustCreateClientWithoutName() {
+    void shouldCreateClientWithoutName() {
         Client client = new Client(null);
 
         String name = client.getName();

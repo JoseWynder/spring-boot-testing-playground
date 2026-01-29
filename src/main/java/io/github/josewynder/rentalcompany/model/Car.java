@@ -2,15 +2,15 @@ package io.github.josewynder.rentalcompany.model;
 
 public class Car {
     private String model;
-    private Double dailyValue;
+    private Double dailyPrice;
 
-    public Car(String model, Double dailyValue) {
+    public Car(String model, Double dailyPrice) {
         this.model = model;
-        this.dailyValue = dailyValue;
+        this.dailyPrice = dailyPrice;
     }
 
     public Double calculateRentalValue(int rentedDays) {
-        double rentalValue = rentedDays * dailyValue;
+        double rentalValue = rentedDays * dailyPrice;
         int discount = 50;
         if(rentedDays >= 5) {
             rentalValue -= discount;
@@ -26,11 +26,11 @@ public class Car {
         this.model = model;
     }
 
-    public Double getDailyValue() {
-        return dailyValue;
+    public Double getDailyPrice() {
+        return dailyPrice;
     }
 
-    public void setDailyValue(Double dailyValue) {
-        this.dailyValue = dailyValue;
+    public void setDailyPrice(Double dailyPrice) {
+        this.dailyPrice = dailyPrice;
     }
 }
