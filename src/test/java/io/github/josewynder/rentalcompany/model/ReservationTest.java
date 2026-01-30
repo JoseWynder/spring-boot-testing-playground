@@ -1,9 +1,9 @@
 package io.github.josewynder.rentalcompany.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import io.github.josewynder.rentalcompany.exceptions.InvalidReservationException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ class ReservationTest {
         Reservation reservation = new Reservation(client, car, days);
 
         // Verification
-        Assertions.assertThat(reservation)
+        assertThat(reservation)
                 .hasNoNullFieldsOrProperties();
     }
 
@@ -35,8 +35,20 @@ class ReservationTest {
     void shouldThrowExceptionWhenCreatingReservationWithInvalidDays() {
         int days = 0;
 
+        // JUnit
         assertThrows(InvalidReservationException.class,
                 () -> new Reservation(client, car, days));
+
+        assertDoesNotThrow(() -> new Reservation(client, car, 1));
+
+        // AssertJ
+        var error = catchThrowable(() ->
+                new Reservation(client, car, days));
+
+        assertThat(error).
+                isInstanceOf(InvalidReservationException.class)
+                .hasMessage("Days must be greater than zero");
+
     }
 
     @Test
