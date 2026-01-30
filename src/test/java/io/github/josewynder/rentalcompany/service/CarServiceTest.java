@@ -1,8 +1,5 @@
 package io.github.josewynder.rentalcompany.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.*;
-
 import io.github.josewynder.rentalcompany.entity.CarEntity;
 import io.github.josewynder.rentalcompany.repository.CarRepository;
 import org.junit.jupiter.api.Test;
@@ -11,6 +8,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.verification.VerificationMode;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CarServiceTest {
@@ -36,5 +37,15 @@ class CarServiceTest {
         assertEquals("Sedan", savedCar.getModel());
 
         Mockito.verify(carRepository).save(Mockito.any());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSaveCarWithInvalidDailyPrice() {
+        CarEntity car = new CarEntity("Sedan", 0, 2027);
+
+        Throwable throwable = catchThrowable(() -> carService.save(car));
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+
+        Mockito.verify(carRepository, Mockito.never()).save(Mockito.any());
     }
 }
