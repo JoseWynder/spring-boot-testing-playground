@@ -8,8 +8,13 @@ public class CarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "daily_price")
     private double dailyPrice;
 
     @Deprecated
