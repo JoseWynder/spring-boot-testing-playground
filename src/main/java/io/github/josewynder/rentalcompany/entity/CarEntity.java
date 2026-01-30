@@ -17,12 +17,16 @@ public class CarEntity {
     @Column(name = "daily_price")
     private double dailyPrice;
 
+    @Column(name = "release_year")
+    private int releaseYear;
+
     @Deprecated
     public CarEntity() {}
 
-    public CarEntity(String model, double dailyPrice) {
+    public CarEntity(String model, double dailyPrice, int releaseYear) {
         this.model = model;
         this.dailyPrice = dailyPrice;
+        this.releaseYear = releaseYear;
     }
 
     public Long getId() {
@@ -47,5 +51,13 @@ public class CarEntity {
 
     public void setDailyPrice(double dailyPrice) {
         this.dailyPrice = dailyPrice;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
     }
 }
