@@ -3,7 +3,7 @@ package io.github.josewynder.rentalcompany.model;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
-import io.github.josewynder.rentalcompany.exceptions.InvalidReservationException;
+import io.github.josewynder.rentalcompany.model.exceptions.InvalidReservationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

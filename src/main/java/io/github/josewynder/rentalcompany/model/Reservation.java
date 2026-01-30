@@ -1,6 +1,6 @@
 package io.github.josewynder.rentalcompany.model;
 
-import io.github.josewynder.rentalcompany.exceptions.InvalidReservationException;
+import io.github.josewynder.rentalcompany.model.exceptions.InvalidReservationException;
 
 public class Reservation {
 
