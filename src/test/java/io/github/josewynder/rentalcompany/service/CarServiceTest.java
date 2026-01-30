@@ -12,8 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
 @ExtendWith(MockitoExtension.class)
 class CarServiceTest {
 
@@ -25,12 +23,18 @@ class CarServiceTest {
 
     @Test
     void shouldSaveCar() {
-        Mockito
-                .when(carRepository.findById(1L))
-                .thenReturn(Optional.of(new CarEntity("Mock test", 10.0, 2026)));
+        CarEntity carToSave = new CarEntity("Sedan", 10.0, 2027);
 
-        Optional<CarEntity> carFound = carRepository.findById(1L);
-        System.out.println(carFound.get().getModel());
+        CarEntity carToReturn = new CarEntity("Sedan", 100.0, 2027);
+        carToReturn.setId(1L);
 
+        Mockito.when( carRepository.save(Mockito.any()) ).thenReturn(carToReturn);
+
+        CarEntity savedCar = carService.save(carToSave);
+
+        assertNotNull(savedCar);
+        assertEquals("Sedan", savedCar.getModel());
+
+        Mockito.verify(carRepository).save(Mockito.any());
     }
 }
