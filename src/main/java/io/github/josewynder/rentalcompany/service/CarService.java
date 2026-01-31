@@ -34,11 +34,11 @@ public class CarService {
         return carRepository.save(existingCar);
     }
 
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         CarEntity existingCar = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("There is no car with that ID"));
 
-        carRepository.deleteById(id);
+        carRepository.delete(existingCar);
     }
 
     public CarEntity findById(Long id) {
