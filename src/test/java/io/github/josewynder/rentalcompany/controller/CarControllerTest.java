@@ -1,8 +1,10 @@
 package io.github.josewynder.rentalcompany.controller;
 
+import com.jayway.jsonpath.JsonPath;
 import io.github.josewynder.rentalcompany.entity.CarEntity;
 import io.github.josewynder.rentalcompany.model.exceptions.EntityNotFoundException;
 import io.github.josewynder.rentalcompany.service.CarService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Arrays;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -66,19 +70,9 @@ class CarControllerTest {
 
         when(carService.findById(car.getId())).thenReturn(car);
 
-        String json = """
-                {
-                    "model": "Fiat Uno",
-                    "dailyPrice": 200,
-                    "releaseYear": 2028
-                }
-                """;
-
         mvc.perform(
                 MockMvcRequestBuilders
                         .get("/cars/" + car.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json)
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(car.getId()))
                 .andExpect(jsonPath("$.model").value(car.getModel()))
@@ -97,5 +91,32 @@ class CarControllerTest {
         mvc.perform(
                 MockMvcRequestBuilders.get("/cars/" + car.getId())
         ).andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Disabled
+    void shouldGetAll() throws Exception {
+        CarEntity car1 = new CarEntity(
+                1L,
+                "Argo",
+                100.0,
+                2025);
+
+        CarEntity car2 = new CarEntity(
+                2L,
+                "Gol",
+                80.0,
+                2026);
+
+        when(carService.findAll())
+                .thenReturn(Arrays.asList(car1, car2));
+
+        mvc.perform(
+                MockMvcRequestBuilders.get("/cars")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].model").value("Argo"))
+                .andExpect(jsonPath("$[1].model").value("Gol"))
+                .andExpect(jsonPath("$.size()").value(2));
+
     }
 }
