@@ -1,6 +1,7 @@
 package io.github.josewynder.rentalcompany.controller;
 
 import io.github.josewynder.rentalcompany.entity.CarEntity;
+import io.github.josewynder.rentalcompany.model.exceptions.EntityNotFoundException;
 import io.github.josewynder.rentalcompany.service.CarService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -56,6 +57,45 @@ class CarControllerTest {
                 .andExpect(jsonPath("$.model").value("Honda Civic"))
                 .andExpect(jsonPath("$.dailyPrice").value(150))
                 .andExpect(jsonPath("$.releaseYear").value(2027));
+    }
 
+    @Test
+    void shouldGetById() throws Exception {
+        CarEntity car = new CarEntity(
+                2L, "Fiat Uno", 200, 2028);
+
+        when(carService.findById(car.getId())).thenReturn(car);
+
+        String json = """
+                {
+                    "model": "Fiat Uno",
+                    "dailyPrice": 200,
+                    "releaseYear": 2028
+                }
+                """;
+
+        mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/cars/" + car.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(car.getId()))
+                .andExpect(jsonPath("$.model").value(car.getModel()))
+                .andExpect(jsonPath("$.dailyPrice").value(car.getDailyPrice()))
+                .andExpect(jsonPath("$.releaseYear").value(car.getReleaseYear()));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenGetNonexistingCar() throws Exception {
+        CarEntity car = new CarEntity(
+                2L, "Fiat Uno", 200, 2028);
+
+        when(carService.findById(car.getId()))
+                .thenThrow(EntityNotFoundException.class);
+
+        mvc.perform(
+                MockMvcRequestBuilders.get("/cars/" + car.getId())
+        ).andExpect(status().isNotFound());
     }
 }
