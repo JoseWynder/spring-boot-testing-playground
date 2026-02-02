@@ -1,6 +1,5 @@
 package io.github.josewynder.rentalcompany.controller;
 
-import com.jayway.jsonpath.JsonPath;
 import io.github.josewynder.rentalcompany.entity.CarEntity;
 import io.github.josewynder.rentalcompany.model.exceptions.EntityNotFoundException;
 import io.github.josewynder.rentalcompany.service.CarService;
@@ -118,5 +117,56 @@ class CarControllerTest {
                 .andExpect(jsonPath("$[1].model").value("Gol"))
                 .andExpect(jsonPath("$.size()").value(2));
 
+    }
+
+    @Test
+    void shouldUpdateWithSuccess() throws Exception {
+        Long existingCarId = 1L;
+
+        CarEntity newCar = new CarEntity(
+                "Gol",
+                80.0,
+                2026);
+
+         String json = """
+                 {
+                     "model": "Gol",
+                     "dailyPrice": 80,
+                     "releaseYear": 2026
+                 }
+                 """;
+
+        when(carService.update(existingCarId, newCar))
+                .thenReturn(new CarEntity(
+                        existingCarId,
+                        newCar.getModel(),
+                        newCar.getDailyPrice(),
+                        newCar.getReleaseYear()));
+
+        mvc.perform(
+                MockMvcRequestBuilders.put("/cars/" + existingCarId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isAccepted());
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenUpdateNonexistingCar() throws Exception {
+        when(carService.update(Mockito.any(), Mockito.any()))
+                .thenThrow(EntityNotFoundException.class);
+
+        String json = """
+                 {
+                     "model": "Gol",
+                     "dailyPrice": 80.0,
+                     "releaseYear": 2026
+                 }
+                 """;
+
+        mvc.perform(
+                MockMvcRequestBuilders.put("/cars/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isNotFound());
     }
 }

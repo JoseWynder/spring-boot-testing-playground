@@ -47,4 +47,15 @@ public class CarController {
     public ResponseEntity<List<CarEntity>> getAll() {
         return ResponseEntity.ok(carService.findAll());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id,
+                                       @RequestBody CarEntity car) {
+        try {
+            carService.update(id, car);
+            return ResponseEntity.accepted().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
