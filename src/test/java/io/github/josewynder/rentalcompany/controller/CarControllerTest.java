@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -167,6 +167,23 @@ class CarControllerTest {
                 MockMvcRequestBuilders.put("/cars/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
+        ).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldDeleteWithSuccess() throws Exception {
+        doNothing().when(carService).delete(Mockito.any());
+        mvc.perform(
+                MockMvcRequestBuilders.delete("/cars/1")
+        ).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenDeleteNonexistingCar() throws Exception {
+        doThrow(EntityNotFoundException.class)
+                .when(carService).delete(Mockito.any());
+        mvc.perform(
+                MockMvcRequestBuilders.delete("/cars/1")
         ).andExpect(status().isNotFound());
     }
 }
