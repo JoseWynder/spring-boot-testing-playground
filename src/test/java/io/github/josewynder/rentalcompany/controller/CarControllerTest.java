@@ -63,6 +63,28 @@ class CarControllerTest {
     }
 
     @Test
+    void shouldReturnUnprocessableEntityWhenSavingCarWithInvalidDailyPrice() throws Exception {
+        when(carService.save(Mockito.any(CarEntity.class)))
+                .thenThrow(IllegalArgumentException.class);
+
+        String json = """
+                {
+                    "model": "Honda Civic",
+                    "dailyPrice": -1,
+                    "releaseYear": 2027
+                }
+                """;
+
+        // Execution
+        mvc.perform(
+                MockMvcRequestBuilders
+                        .post("/cars")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     void shouldGetById() throws Exception {
         CarEntity car = new CarEntity(
                 2L, "Fiat Uno", 200, 2028);
@@ -93,7 +115,6 @@ class CarControllerTest {
     }
 
     @Test
-    @Disabled
     void shouldGetAll() throws Exception {
         CarEntity car1 = new CarEntity(
                 1L,
