@@ -1,9 +1,8 @@
 package io.github.josewynder.rentalcompany.controller;
 
-import io.github.josewynder.rentalcompany.entity.CarEntity;
-import io.github.josewynder.rentalcompany.model.exceptions.EntityNotFoundException;
+import io.github.josewynder.rentalcompany.model.CarEntity;
+import io.github.josewynder.rentalcompany.exception.EntityNotFoundException;
 import io.github.josewynder.rentalcompany.service.CarService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

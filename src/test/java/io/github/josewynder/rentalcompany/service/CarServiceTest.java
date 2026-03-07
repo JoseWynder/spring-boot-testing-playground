@@ -1,7 +1,7 @@
 package io.github.josewynder.rentalcompany.service;
 
-import io.github.josewynder.rentalcompany.entity.CarEntity;
-import io.github.josewynder.rentalcompany.model.exceptions.EntityNotFoundException;
+import io.github.josewynder.rentalcompany.model.CarEntity;
+import io.github.josewynder.rentalcompany.exception.EntityNotFoundException;
 import io.github.josewynder.rentalcompany.repository.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

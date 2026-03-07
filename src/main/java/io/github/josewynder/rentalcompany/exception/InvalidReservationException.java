@@ -1,4 +1,4 @@
-package io.github.josewynder.rentalcompany.model.exceptions;
+package io.github.josewynder.rentalcompany.exception;
 
 public class InvalidReservationException extends RuntimeException {
     public InvalidReservationException(String message) {

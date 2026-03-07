@@ -3,7 +3,7 @@ package io.github.josewynder.rentalcompany.repository;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
-import io.github.josewynder.rentalcompany.entity.CarEntity;
+import io.github.josewynder.rentalcompany.model.CarEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

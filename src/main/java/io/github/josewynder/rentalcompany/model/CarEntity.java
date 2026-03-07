@@ -1,4 +1,4 @@
-package io.github.josewynder.rentalcompany.entity;
+package io.github.josewynder.rentalcompany.model;
 
 import jakarta.persistence.*;
 
