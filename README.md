@@ -1,7 +1,7 @@
-<h1 align="center">Spring Boot Testing Module</h1>
+<h1 align="center">Spring Boot Testing</h1>
 
 <p align="center">
-Projeto dedicado exclusivamente ao estudo e aplicação de testes automatizados
+Projeto dedicado ao estudo e aplicação de testes automatizados
 em aplicações backend construídas com Spring Boot.
 </p>
 
@@ -9,63 +9,118 @@ em aplicações backend construídas com Spring Boot.
 
 ## 📌 Sobre o Projeto
 
-Este módulo foi desenvolvido com foco total em testes automatizados,
-explorando estratégias de validação de diferentes camadas de uma aplicação backend.
+Este projeto explora estratégias de testes automatizados aplicadas a uma API REST simples de gerenciamento de veículos.
 
-O objetivo foi exercitar isolamento de dependências, simulação de cenários
-e validação de comportamentos utilizando ferramentas modernas do ecossistema Java.
+A aplicação foi estruturada em camadas (Controller, Service e Repository) para permitir a validação isolada de cada componente e também a execução de testes de integração que simulam o comportamento real da aplicação.
+
+O objetivo é compreender como diferentes tipos de testes podem ser utilizados para garantir a confiabilidade de APIs backend.
 
 ---
 
 ## 🧪 Estratégia de Testes
 
-Foram desenvolvidos testes para múltiplas camadas:
+Os testes foram organizados para validar diferentes níveis da aplicação:
 
-- Controllers
-- Services
-- Repositories
-- Fluxos completos da aplicação
+* **Controller Tests** — validação de endpoints REST e comportamento das rotas HTTP
+* **Service Tests** — verificação da lógica de negócio com isolamento de dependências
+* **Repository Tests** — testes de persistência utilizando banco de dados em memória
+* **Integration Tests** — validação do funcionamento integrado entre as camadas
 
-Também foram realizados testes envolvendo:
-
-- inicialização de contexto
-- configuração de banco de dados para cenários de teste
-- validação de endpoints HTTP
+Essa abordagem permite verificar tanto unidades isoladas quanto o fluxo completo da aplicação.
 
 ---
 
-## 🧰 Ferramentas Utilizadas
+## 🧰 Tecnologias Utilizadas
 
-- JUnit 5
-- Mockito
-- Spring Boot Test
-
----
-
-## 🔬 Abordagens Aplicadas
-
-- Mocking de dependências
-- Isolamento de camadas
-- Simulação de cenários de erro e sucesso
-- Validação de regras de negócio
-- Testes de integração de endpoints
+* Java
+* Spring Boot
+* JUnit 5
+* Mockito
+* Spring Boot Test
+* H2 Database
 
 ---
 
-## 🎯 Objetivo do Projeto
+## 🧱 Estrutura do Projeto
 
-- Consolidar práticas de testes automatizados no backend
-- Aprender estratégias de mock e isolamento
-- Exercitar validação de APIs REST
-- Estruturar testes claros e organizados
+A aplicação segue uma arquitetura simples em camadas:
+
+```
+controller
+ └─ CarController
+
+service
+ └─ CarService
+
+repository
+ └─ CarRepository
+
+model
+ └─ CarEntity
+
+exception
+ └─ Exceções de domínio
+```
+
+Os testes foram organizados espelhando essa mesma estrutura.
+
+```
+test
+ ├─ controller
+ │   └─ CarControllerTest
+ │
+ ├─ service
+ │   └─ CarServiceTest
+ │
+ └─ repository
+     ├─ CarRepositoryTest
+     └─ CarRepositorySQLTest
+```
+
+Também foi utilizado um dataset de teste localizado em:
+
+```
+src/test/resources/sql/fill-cars.sql
+```
+
+Esse arquivo é utilizado para popular o banco em memória durante a execução de alguns testes de persistência.
 
 ---
 
-## 📎 Observações
+## 🖼️ Exemplos de Testes
 
-Este projeto é complementar ao projeto principal de API REST,
-sendo dedicado exclusivamente ao estudo de testes automatizados.
+### Testes unitários da camada de serviço com Mockito
+
+Isolamento da lógica de negócio utilizando mocks para simular dependências externas.
+
+<img width="1303" height="851" alt="2" src="https://github.com/user-attachments/assets/8e4b84ca-cba4-4083-8d5d-2792f80ef64c" />
 
 ---
 
-<p align="center"> <em>🔍 Exercícios práticos para fortalecer a base de testes e entender o comportamento real das camadas da aplicação.</em> </p>
+### Testes de API REST com MockMvc
+
+Validação de endpoints REST utilizando `@WebMvcTest` e `MockMvc`.
+
+<img width="1177" height="760" alt="3" src="https://github.com/user-attachments/assets/14d6d682-96c0-4962-9364-555400b1c375" />
+
+---
+
+### Testes de persistência com JPA e banco em memória
+
+Testes de integração da camada de persistência utilizando `@DataJpaTest` e banco H2.
+
+<img width="1418" height="793" alt="4" src="https://github.com/user-attachments/assets/d1a53a0f-f980-4b05-adf3-170ae3b9cd32" />
+
+---
+
+### Execução da suíte de testes
+
+Execução completa da suíte validando o comportamento da aplicação.
+
+<img width="1068" height="400" alt="5" src="https://github.com/user-attachments/assets/2464a51b-3430-467d-90a5-dc7048cd3365" />
+
+---
+
+<p align="center">
+<em>🔍 Projeto criado para consolidar práticas de testes automatizados no backend e compreender estratégias de validação em aplicações Spring Boot.</em>
+</p>
