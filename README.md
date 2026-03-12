@@ -1,6 +1,6 @@
-<h1 align="center">Spring Boot Testing</h1>
+<h1>Spring Boot Testing</h1>
 
-<p align="center">
+<p>
 Projeto dedicado ao estudo e aplicação de testes automatizados
 em aplicações backend construídas com Spring Boot.
 </p>
