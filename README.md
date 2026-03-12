@@ -1,12 +1,10 @@
 <h1>Spring Boot Testing</h1>
 
-Projeto dedicado ao estudo e aplicação de testes automatizados em aplicações backend construídas com Spring Boot. 
+Projeto dedicado ao estudo e aplicação de testes automatizados em aplicações backend construídas com Spring Boot.
 
-O projeto explora estratégias de testes automatizados aplicadas a uma API REST simples de gerenciamento de veículos.
+Para servir como base dos testes, foi criada uma API REST simples de gerenciamento de veículos. A aplicação foi estruturada em camadas (Controller, Service e Repository), permitindo validar cada componente de forma isolada e também executar testes de integração que simulam o comportamento real da aplicação.
 
-A aplicação foi estruturada em camadas (Controller, Service e Repository) para permitir a validação isolada de cada componente e também a execução de testes de integração que simulam o comportamento real da aplicação.
-
-O objetivo é compreender como diferentes tipos de testes podem ser utilizados para garantir a confiabilidade de APIs backend.
+O objetivo do projeto é compreender como diferentes tipos de testes podem ser utilizados para garantir maior confiabilidade no desenvolvimento de APIs backend.
 
 ---
 
